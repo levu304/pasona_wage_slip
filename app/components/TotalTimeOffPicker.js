@@ -1,5 +1,5 @@
 import React from "react";
-import { Picker, Form, Icon } from "native-base";
+import { Picker, Icon } from "native-base";
 
 class TotalTimeOffPicker extends React.Component {
   constructor(props) {
@@ -25,8 +25,8 @@ class TotalTimeOffPicker extends React.Component {
   render() {
     const { isDisable, selected } = this.state;
     return (
-      <Form>
         <Picker
+          style={{paddingLeft:12}}
           note
           mode="dialog"
           enabled={!isDisable}
@@ -38,7 +38,6 @@ class TotalTimeOffPicker extends React.Component {
           <Picker.Item label="AM" value="1" />
           <Picker.Item label="PM" value="2" />
         </Picker>
-      </Form>
     );
   }
 }

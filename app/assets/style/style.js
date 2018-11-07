@@ -50,6 +50,9 @@ const Styles = StyleSheet.create({
   redButton: {
     backgroundColor: "#fc151d"
   },
+  blackButton: {
+    backgroundColor: "#393937"
+  },
   loginButton: {
     marginTop: 20,
     marginBottom: 20
@@ -80,6 +83,11 @@ const Styles = StyleSheet.create({
   footerButton: {
     backgroundColor: "#393937",
     color: "white"
+  },
+  textArea: {
+    margin: 16,
+    borderRadius:5,
+    marginTop: 16
   }
 });
 

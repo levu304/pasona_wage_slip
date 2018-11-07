@@ -15,7 +15,7 @@ export const fetchUsersProcessFailure = error => ({
 export const fetchUsersProcess = header => {
   return dispatch => {
     dispatch(fetchUsersProcessBegin());
-    return fetch("http://192.168.0.182:8888/api/Process/getAllUserByProcess/", {
+    return fetch("http://183.91.31.126:8888/wageslip_HCM/api/Process/getAllUserByProcess/", {
       method: "GET",
       headers: {
         Authorization: header

@@ -1,7 +1,7 @@
 import React from "react";
 import { Picker, Icon } from "native-base";
 
-class LeaveTypePicker extends React.Component {
+class OTTypePicker extends React.Component {
   constructor(props) {
     super(props);
     this.state = { selected: "0" };
@@ -31,16 +31,15 @@ class LeaveTypePicker extends React.Component {
         onValueChange={this.onValueChange.bind(this)}
       >
         <Picker.Item label="Select type" value="0" />
-        <Picker.Item label="Paid holiday" value="1" />
-        <Picker.Item label="Sickness" value="2" />
-        <Picker.Item label="Marriage" value="3" />
-        <Picker.Item label="Maternity" value="4" />
-        <Picker.Item label="Mourning" value="5" />
-        <Picker.Item label="Special leave" value="6" />
-        <Picker.Item label="Unpaid leave" value="7" />
+        <Picker.Item label="OT" value="1" />
+        <Picker.Item label="OT Night" value="2" />
+        <Picker.Item label="HOT" value="3" />
+        <Picker.Item label="HOT Night" value="4" />
+        <Picker.Item label="NHOT" value="5" />
+        <Picker.Item label="NHOT Night" value="6" />
       </Picker>
     );
   }
 }
 
-export default LeaveTypePicker;
+export default OTTypePicker;

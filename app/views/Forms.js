@@ -14,9 +14,33 @@ import {
   Icon,
   Text
 } from "native-base";
+import { fetchUsersProcess } from "../actions/getAllUserByProcess";
+import { connect } from "react-redux";
 
 class Forms extends React.Component {
   static navigationOptions = { header: null };
+
+  constructor(props){
+    super(props);
+    this.state = {
+      depts: {}
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.header) {
+      this._getAllUserByProcess(this.props.header);
+    }
+  }
+
+  _getAllUserByProcess(header) {
+    this.props.dispatch(fetchUsersProcess(header)).then(() => {
+      this.setState({
+        depts: this.props.depts,
+        isLoading: false
+      });
+    });
+  }
 
   render() {
     const { navigate } = this.props.navigation;
@@ -34,22 +58,24 @@ class Forms extends React.Component {
           </Body>
           <Right />
         </Header>
-        <Content style={Styles.fixedBottomView}>
+        <Content padder>
           <Button
             block
             onPress={() => {
               navigate("LeaveForm");
             }}
-            style={[Styles.redButton, Styles.menuButton]}
+            style={[Styles.blackButton, Styles.menuButton]}
           >
             <Text>Application for leave</Text>
           </Button>
           <Button
             block
-            enabled={false}
-            style={[Styles.redButton, Styles.menuButton]}
+            onPress={() => {
+              navigate("OverTimeForm");
+            }}
+            style={[Styles.blackButton, Styles.menuButton]}
           >
-            <Text>Application for OT (Coming soon)</Text>
+            <Text>Application for Overtime</Text>
           </Button>
         </Content>
       </Container>
@@ -57,4 +83,12 @@ class Forms extends React.Component {
   }
 }
 
-export default withNavigation(Forms);
+const mapStateToProps = state => {
+  return {
+    header: state.loginReducer.header,
+    depts: state.getUsersProcessReducer.data
+  };
+};
+
+
+export default withNavigation(connect(mapStateToProps)(Forms));

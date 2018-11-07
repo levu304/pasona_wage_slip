@@ -12,8 +12,10 @@ import SalaryDetail from "./app/views/SalaryDetail";
 import LeaveForm from "./app/views/LeaveForm";
 import Dept from "./app/views/Dept";
 import Forms from "./app/views/Forms";
+import OverTimeForm from "./app/views/OverTimeForm";
 
 import { Root } from "native-base";
+
 
 const RootStack = createStackNavigator(
   {
@@ -22,9 +24,10 @@ const RootStack = createStackNavigator(
     Salary: Salary,
     SalaryDetail: SalaryDetail,
     TimeSheet: TimeSheet,
-    LeaveForm: LeaveForm,
     Dept: Dept,
-    Forms: Forms
+    Forms: Forms,
+    LeaveForm: LeaveForm,
+    OverTimeForm: OverTimeForm
   },
   {
     initialRouteName: "Login",

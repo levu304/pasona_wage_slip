@@ -1,6 +1,6 @@
 import React from "react";
 import { FlatList } from "react-native";
-import { Button, Icon, Text, SwipeRow, Right, Left, View } from "native-base";
+import { Button, Icon, Text, SwipeRow, View } from "native-base";
 
 export default class DeptList extends React.Component {
   constructor(props) {
@@ -27,9 +27,9 @@ export default class DeptList extends React.Component {
     return (
       <FlatList
         data={listViewData}
-        renderItem={({ item }) => (
+        renderItem={({ item }) => item.code !== "008" ? (
           <SwipeRow
-            key={item.prior}
+            key={item.code}
             rightOpenValue={-75}
             disableRightSwipe={true}
             body={
@@ -44,6 +44,20 @@ export default class DeptList extends React.Component {
               <Button danger onPress={() => this._removeItem(item.name)}>
                 <Icon active name="trash" />
               </Button>
+            }
+          />
+        ) : (
+          <SwipeRow
+            key={item.code}
+            disableRightSwipe={true}
+            disableLeftSwipe={true}
+            body={
+              <View style={{ paddingHorizontal: 16 }}>
+                <Text>
+                  <Text>{item.name} | </Text>
+                  <Text>{item.position}</Text>
+                </Text>
+              </View>
             }
           />
         )}

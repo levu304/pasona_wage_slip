@@ -40,7 +40,6 @@ class OfflineNotice extends PureComponent {
 
   render() {
     const { isConnected } = this.state;
-    console.log(isConnected);
     return !isConnected ? <MiniOfflineSign /> : null;
   }
 }

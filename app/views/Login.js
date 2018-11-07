@@ -121,7 +121,6 @@ class Login extends React.Component {
   }
 
   render() {
-    const isConnected = this.state.isConnected;
     if (this.state.isLogin) {
       return (
         <Container>
@@ -197,7 +196,6 @@ class Login extends React.Component {
                 />
               </Item>
               <Button
-                disabled={isConnected}
                 style={[Styles.redButton, Styles.loginButton]}
                 block
                 onPress={this.Login}

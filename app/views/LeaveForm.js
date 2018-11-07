@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusBar, Alert, Platform } from "react-native";
+import { StatusBar, Alert } from "react-native";
 import { withNavigation } from "react-navigation";
 import Styles from "../assets/style/style";
 import {
@@ -16,20 +16,18 @@ import {
   List,
   ListItem,
   Text,
-  Form,
   Textarea,
   Footer,
   FooterTab,
   DatePicker
 } from "native-base";
-import { fetchUsersProcess } from "../actions/getAllUserByProcess";
 import { postAbsent } from "../actions/createAbsent";
 import { connect } from "react-redux";
 import TotalTimeOffPicker from "../components/TotalTimeOffPicker";
 import LeaveTypePicker from "../components/LeaveTypePicker";
 import moment from "moment";
 import SpinnerOverLay from "react-native-loading-spinner-overlay";
-import { _dateDifference, _exportDays } from "../modules";
+import { _dateDifference, _exportDays, _isEmpty } from "../modules";
 
 class LeaveForm extends React.Component {
   static navigationOptions = { header: null };
@@ -66,18 +64,12 @@ class LeaveForm extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.header) {
-      this._getAllUserByProcess(this.props.header);
-    }
-  }
-
-  _getAllUserByProcess(header) {
-    this.props.dispatch(fetchUsersProcess(header)).then(() => {
+    if(!_isEmpty(this.props.depts)){
       this.setState({
         depts: this.props.depts,
         isLoading: false
       });
-    });
+    }
   }
 
   _deptGoBack(deptName, processID, deptList) {
@@ -169,13 +161,11 @@ class LeaveForm extends React.Component {
     let toDate = Date.parse(date.toDate);
     if (fromDate > toDate) {
       Alert.alert(
-        'Alert',
+        "Alert",
         "To Date must be larger than From Date",
-        [
-          {text: 'OK', onPress: () => console.log('OK Pressed')}
-        ],
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
         { cancelable: false }
-      )
+      );
     } else {
       if (
         dept.list.length === 0 ||
@@ -185,13 +175,11 @@ class LeaveForm extends React.Component {
         date.toDate === ""
       ) {
         Alert.alert(
-          'Alert',
+          "Alert",
           "Please fill all information",
-          [
-            {text: 'OK', onPress: () => console.log('OK Pressed')}
-          ],
+          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
           { cancelable: false }
-        )
+        );
       } else {
         this.setState(
           {
@@ -231,30 +219,26 @@ class LeaveForm extends React.Component {
           if (this.props.error) {
             console.log(this.props.error);
             Alert.alert(
-              'Alert',
+              "Alert",
               this.props.error,
-              [
-                {text: 'OK', onPress: () => console.log('OK Pressed')}
-              ],
+              [{ text: "OK", onPress: () => console.log("OK Pressed") }],
               { cancelable: false }
-            )
+            );
           } else {
             console.log(this.props.result);
             Alert.alert(
-              '',
+              "",
               "Register Absent is successful !",
-              [
-                {text: 'OK', onPress: this._goBack}
-              ],
+              [{ text: "OK", onPress: this._goBack }],
               { cancelable: false }
-            )
+            );
           }
         }
       );
     });
   }
 
-  _goBack(){
+  _goBack() {
     this.props.navigation.goBack();
   }
 
@@ -303,12 +287,13 @@ class LeaveForm extends React.Component {
           </Header>
           <Content>
             <List>
-              <ListItem>
+              <ListItem style={{ paddingTop: 5, paddingBottom: 5 }}>
                 <Left>
                   <Text>From Date</Text>
                 </Left>
                 <Body>
                   <DatePicker
+                    style={{ paddingLeft: 0 }}
                     locale={"en"}
                     timeZoneOffsetInMinutes={undefined}
                     modalTransparent={false}
@@ -321,12 +306,13 @@ class LeaveForm extends React.Component {
                   />
                 </Body>
               </ListItem>
-              <ListItem>
+              <ListItem style={{ paddingTop: 5, paddingBottom: 5 }}>
                 <Left>
                   <Text>To Date (Optional)</Text>
                 </Left>
                 <Body>
                   <DatePicker
+                    style={{ paddingLeft: 0 }}
                     locale={"en"}
                     timeZoneOffsetInMinutes={undefined}
                     modalTransparent={false}
@@ -339,7 +325,9 @@ class LeaveForm extends React.Component {
                   />
                 </Body>
               </ListItem>
-              <ListItem>
+            </List>
+            <List>
+              <ListItem style={{ paddingTop: 0, paddingBottom: 0 }}>
                 <Left>
                   <Text>Total of time off</Text>
                 </Left>
@@ -350,14 +338,18 @@ class LeaveForm extends React.Component {
                   />
                 </Body>
               </ListItem>
-              <ListItem>
+            </List>
+            <List>
+              <ListItem style={{ paddingTop: 0, paddingBottom: 0 }}>
                 <Left>
-                  <Text>Leave type</Text>
+                  <Text>Type</Text>
                 </Left>
                 <Body>
                   <LeaveTypePicker select={this._handleLeaveType} />
                 </Body>
               </ListItem>
+            </List>
+            <List>
               <ListItem
                 onPress={() => {
                   this.props.navigation.navigate("Dept", {
@@ -374,20 +366,15 @@ class LeaveForm extends React.Component {
                 </Body>
               </ListItem>
             </List>
-            <Form>
-              <Textarea
-                rowSpan={Platform.OS === 'ios' ? 5 : 3}
-                bordered
-                placeholder="Reason"
-                style={{
-                  margin: 16,
-                  borderRadius:5
-                }}
-                onChangeText={text => {
-                  this._onChangeReason(text);
-                }}
-              />
-            </Form>
+            <Textarea
+              rowSpan={5}
+              bordered
+              placeholder="Input reason"
+              style={Styles.textArea}
+              onChangeText={text => {
+                this._onChangeReason(text);
+              }}
+            />
           </Content>
           <Footer>
             <FooterTab>
