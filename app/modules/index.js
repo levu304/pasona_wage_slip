@@ -70,11 +70,7 @@ export const _hoursToTime = time => {
   let minutes = time % 1;
   let hour = time - minutes;
   minutes = Math.round(minutes * 60);
-  return (
-    ("00" + hour).slice(-2) +
-    ":" +
-    ("00" + minutes).slice(-2)
-  );
+  return ("00" + hour).slice(-2) + ":" + ("00" + minutes).slice(-2);
 };
 
 export const _dateDifference = (start, end) => {
@@ -133,4 +129,24 @@ export const _exportDays = (start, end) => {
     }
   }
   return stringDays;
+};
+
+export const _getOTime = (inTime, outTime, ductime) => {
+  let start =
+    parseInt(inTime.split(":")[0]) + parseFloat(inTime.split(":")[1]) / 60;
+  let end =
+    parseInt(outTime.split(":")[0]) + parseFloat(outTime.split(":")[1]) / 60;
+
+  let workingTime = end - start - ductime;
+  let workingTimeMinutes = workingTime % 1;
+  let workingTimeHour = workingTime - workingTimeMinutes;
+  workingTimeMinutes = Math.round(workingTimeMinutes * 60);
+  let timeMod = workingTimeMinutes % 15;
+  workingTimeMinutes = workingTimeMinutes - timeMod;
+
+  return (
+    ("00" + workingTimeHour).slice(-2) +
+    ":" +
+    ("00" + workingTimeMinutes).slice(-2)
+  );
 };

@@ -6,6 +6,7 @@ import timeSheetReducer from "./timeSheetReducer";
 import getUsersProcessReducer from "./getUsersProcessReducer";
 import postAbsentReducer from "./postAbsentReducer"
 import getProjectsReducer from "./getProjectsReducer";
+import createOvertimeReducer from "./createOvertimeReducer";
 
 export default combineReducers({
   loginReducer,
@@ -13,5 +14,6 @@ export default combineReducers({
   timeSheetReducer,
   getUsersProcessReducer,
   postAbsentReducer,
-  getProjectsReducer
+  getProjectsReducer,
+  createOvertimeReducer
 });

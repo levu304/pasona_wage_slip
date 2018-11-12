@@ -39,9 +39,9 @@ class OvertimeForPicker extends React.Component {
     const data = this.state.data;
     let items = [];
     if (!_isEmpty(data)) {
-        items.push(<Picker.Item label="Select type" value="0" />)
+        items.push(<Picker.Item key="0" label="Select type" value="0" />)
         for(let key in data){
-            items.push(<Picker.Item label={data[key]} value={key} />)
+            items.push(<Picker.Item key={key} label={data[key]} value={key} />)
         }
     }
     return (

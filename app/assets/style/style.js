@@ -84,10 +84,26 @@ const Styles = StyleSheet.create({
     backgroundColor: "#393937",
     color: "white"
   },
+  otInputSubject:{
+    marginLeft: 16,
+    marginRight:16,
+    borderBottomWidth: 0.25,
+    borderBottomColor: "#c9c9c9"
+  },
+  otInputReason: {
+    marginLeft: 16,
+    marginRight:16,
+    borderBottomWidth: 0.25,
+    borderBottomColor: "#c9c9c9"
+  },
   textArea: {
     margin: 16,
-    borderRadius:5,
-    marginTop: 16
+    marginTop: 16,
+    borderTopWidth: 0,
+    borderRightWidth: 0,
+    borderBottomWidth: 0.25,
+    borderLeftWidth: 0,
+    borderBottomColor: "#c9c9c9"
   }
 });
 

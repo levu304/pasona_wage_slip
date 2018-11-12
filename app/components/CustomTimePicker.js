@@ -31,7 +31,7 @@ export default class CustomTimePicker extends React.Component {
   _showEndPicker = () => this.setState({ isEndVisible: true });
 
   _handleEndPicked(time) {
-    time = moment(time).format("hh:mm");
+    time = moment(time).format("HH:mm");
     this.setState(
       {
         endTime: time
@@ -61,11 +61,13 @@ export default class CustomTimePicker extends React.Component {
   _onChangeDeductTime(text) {
     this.setState({
       deductTime: text
+    }, () => {
+      const { deductTime } = this.state;
+      this.props.deductTime(deductTime);
     });
   }
 
   render() {
-    const title = this.props.title;
     const startTime = this.state.startTime;
     const endTime = this.state.endTime;
     return (
