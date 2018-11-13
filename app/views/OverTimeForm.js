@@ -63,6 +63,7 @@ class OverTimeForm extends React.Component {
     this._onChangeSubject = this._onChangeSubject.bind(this);
     this._onChangeReason = this._onChangeReason.bind(this);
     this._confirm = this._confirm.bind(this);
+    this._goBack = this._goBack.bind(this);
   }
 
   componentDidMount() {
@@ -286,7 +287,7 @@ class OverTimeForm extends React.Component {
     }
   }
 
-  _goBack(){
+  _goBack() {
     this.props.navigation.goBack();
   }
 

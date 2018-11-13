@@ -160,6 +160,7 @@ class TimeSheet extends React.Component {
         </Container>
       );
     } else {
+      console.log(timeSheetData.result);
       let days = timeSheetData.result[0].map((day, index) => (
         <TimeSheetListItem
           key={index}

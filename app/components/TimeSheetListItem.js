@@ -12,7 +12,7 @@ class TimeSheetListItem extends React.Component {
   _workingTime(start, end) {
     let dayOff = this.props.dayOff;
     if (!_isEmpty(dayOff) && dayOff.partDay === "3") {
-      return  "00:00";
+      return "00:00";
     }
     start = _timeToHours(start);
     end = _timeToHours(end);
@@ -40,6 +40,20 @@ class TimeSheetListItem extends React.Component {
     end = _timeToHours(end);
     let time = end - start;
     return time >= 0 ? "00:00" : _hoursToTime(time);
+  }
+
+  _setOvertimeValue(textValue) {
+    let values = textValue.split("|");
+    let result = _timeToHours("00:00");
+
+    for (let i = 0; i < values.length; i++) {
+      if (values[i].indexOf("green") !== -1) {
+        let div = document.createElement("div");
+        div.innerHTML = values[i].trim();
+        result += _timeToHours(div.firstChild.innerHTML);
+      }
+    }
+    return _hoursToTime(result);
   }
 
   render() {
@@ -112,7 +126,9 @@ class TimeSheetListItem extends React.Component {
               <Text>OT</Text>
             </Left>
             <Body>
-              <Text style={{ textAlign: "right" }}>{day.valueTxtOT}</Text>
+              <Text style={{ textAlign: "right" }}>
+                {this._setOvertimeValue(day.valueTxtOT)}
+              </Text>
             </Body>
           </ListItem>
         </View>
