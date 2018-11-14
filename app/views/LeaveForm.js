@@ -85,7 +85,7 @@ class LeaveForm extends React.Component {
   _setFromDate(date) {
     date = moment(date).format("MM/DD/YYYY");
     const toDate = this.state.date.toDate;
-    if (toDate === date) {
+    if (toDate === date || toDate === "") {
       this.setState({
         totalType: {
           value: "3",
@@ -113,7 +113,7 @@ class LeaveForm extends React.Component {
   _setToDate(date) {
     date = moment(date).format("MM/DD/YYYY");
     const fromDate = this.state.date.fromDate;
-    if (date === fromDate) {
+    if (date === fromDate || fromDate === "") {
       this.setState({
         totalType: {
           disable: false,
