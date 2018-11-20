@@ -331,7 +331,6 @@ class OverTimeForm extends React.Component {
             }}
           />
           <CustomDatePicker
-            title="Overtime Day"
             itemTitle="Day"
             selectedDate={this._handleOTDate}
           />

@@ -18,16 +18,15 @@ import {
   Text,
   Textarea,
   Footer,
-  FooterTab,
-  DatePicker
+  FooterTab
 } from "native-base";
 import { postAbsent } from "../actions/createAbsent";
 import { connect } from "react-redux";
 import TotalTimeOffPicker from "../components/TotalTimeOffPicker";
 import LeaveTypePicker from "../components/LeaveTypePicker";
-import moment from "moment";
 import SpinnerOverLay from "react-native-loading-spinner-overlay";
 import { _dateDifference, _exportDays, _isEmpty } from "../modules";
+import CustomDatePicker from "../components/CustomDatePicker";
 
 class LeaveForm extends React.Component {
   static navigationOptions = { header: null };
@@ -64,7 +63,7 @@ class LeaveForm extends React.Component {
   }
 
   componentDidMount() {
-    if(!_isEmpty(this.props.depts)){
+    if (!_isEmpty(this.props.depts)) {
       this.setState({
         depts: this.props.depts,
         isLoading: false
@@ -83,7 +82,6 @@ class LeaveForm extends React.Component {
   }
 
   _setFromDate(date) {
-    date = moment(date, "MM/DD/YYYY").format("MM/DD/YYYY");
     const toDate = this.state.date.toDate;
     if (toDate === date || toDate === "") {
       this.setState({
@@ -111,7 +109,6 @@ class LeaveForm extends React.Component {
   }
 
   _setToDate(date) {
-    date = moment(date, "MM/DD/YYYY").format("MM/DD/YYYY");
     const fromDate = this.state.date.fromDate;
     if (date === fromDate || fromDate === "") {
       this.setState({
@@ -203,7 +200,7 @@ class LeaveForm extends React.Component {
       CountDays: _dateDifference(date.fromDate, date.toDate).toFixed(1),
       Value: _exportDays(date.fromDate, date.toDate),
       ProcessID: dept.processID,
-      DatEffect: moment(date.fromDate, "MM/DD/YYYY").format("MM/DD/YYYY"),
+      DatEffect: date.fromDate,
       LeaveType: leaveType,
       PartDays: totalType.value,
       LstEmpApproval: listApproval
@@ -223,7 +220,7 @@ class LeaveForm extends React.Component {
                 [{ text: "OK", onPress: () => console.log("OK Pressed") }],
                 { cancelable: false }
               );
-            }, 500)   
+            }, 500);
           } else {
             setTimeout(() => {
               Alert.alert(
@@ -287,46 +284,14 @@ class LeaveForm extends React.Component {
             <Right />
           </Header>
           <Content>
-            <List>
-              <ListItem style={{ paddingTop: 5, paddingBottom: 5 }}>
-                <Left>
-                  <Text>From Date</Text>
-                </Left>
-                <Body>
-                  <DatePicker
-                    style={{ paddingLeft: 0 }}
-                    locale={"en"}
-                    timeZoneOffsetInMinutes={undefined}
-                    modalTransparent={false}
-                    animationType={"fade"}
-                    androidMode={"default"}
-                    placeHolderText="Select date"
-                    textStyle={{ color: "blue" }}
-                    placeHolderTextStyle={{ color: "#d3d3d3" }}
-                    onDateChange={this._setFromDate}
-                  />
-                </Body>
-              </ListItem>
-              <ListItem style={{ paddingTop: 5, paddingBottom: 5 }}>
-                <Left>
-                  <Text>To Date (Optional)</Text>
-                </Left>
-                <Body>
-                  <DatePicker
-                    style={{ paddingLeft: 0 }}
-                    locale={"en"}
-                    timeZoneOffsetInMinutes={undefined}
-                    modalTransparent={false}
-                    animationType={"fade"}
-                    androidMode={"default"}
-                    placeHolderText="Select date"
-                    textStyle={{ color: "blue" }}
-                    placeHolderTextStyle={{ color: "#d3d3d3" }}
-                    onDateChange={this._setToDate}
-                  />
-                </Body>
-              </ListItem>
-            </List>
+            <CustomDatePicker
+              itemTitle="From Date"
+              selectedDate={this._setFromDate}
+            />
+            <CustomDatePicker
+              itemTitle="To Date (Optional)"
+              selectedDate={this._setToDate}
+            />
             <List>
               <ListItem style={{ paddingTop: 0, paddingBottom: 0 }}>
                 <Left>

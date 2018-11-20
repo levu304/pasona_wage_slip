@@ -45,7 +45,7 @@ export default class CustomTimePicker extends React.Component {
   }
 
   _handleStartPicked(time) {
-    time = moment(time).format("HH:mm");
+    time = moment(time, "HH:mm").format("HH:mm");
     this.setState(
       {
         startTime: time

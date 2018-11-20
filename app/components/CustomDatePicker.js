@@ -20,7 +20,7 @@ export default class CustomDatePicker extends React.Component {
   _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
 
   _handleDatePicked(date) {
-    date = moment(date).format("MM/DD/YYYY");
+    date = moment(date, "MM/DD/YYYY").format("MM/DD/YYYY");
     this.setState(
       {
         selectedDate: date
@@ -34,7 +34,6 @@ export default class CustomDatePicker extends React.Component {
   }
 
   render() {
-    const title = this.props.title;
     const itemTitle = this.props.itemTitle;
     const selectedDate = this.state.selectedDate;
     return (
@@ -48,11 +47,11 @@ export default class CustomDatePicker extends React.Component {
           </Body>
         </ListItem>
         <DateTimePicker
-            mode="date"
-            isVisible={this.state.isDateTimePickerVisible}
-            onConfirm={this._handleDatePicked}
-            onCancel={this._hideDateTimePicker}
-          />
+          mode="date"
+          isVisible={this.state.isDateTimePickerVisible}
+          onConfirm={this._handleDatePicked}
+          onCancel={this._hideDateTimePicker}
+        />
       </List>
     );
   }
