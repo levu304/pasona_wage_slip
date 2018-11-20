@@ -27,9 +27,9 @@ export default class DeptList extends React.Component {
     return (
       <FlatList
         data={listViewData}
+        keyExtractor={(item) => item.code}
         renderItem={({ item }) => item.code !== "008" ? (
           <SwipeRow
-            key={item.code}
             rightOpenValue={-75}
             disableRightSwipe={true}
             body={
@@ -48,7 +48,6 @@ export default class DeptList extends React.Component {
           />
         ) : (
           <SwipeRow
-            key={item.code}
             disableRightSwipe={true}
             disableLeftSwipe={true}
             body={

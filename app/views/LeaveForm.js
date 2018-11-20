@@ -83,7 +83,7 @@ class LeaveForm extends React.Component {
   }
 
   _setFromDate(date) {
-    date = moment(date).format("MM/DD/YYYY");
+    date = moment(date, "MM/DD/YYYY").format("MM/DD/YYYY");
     const toDate = this.state.date.toDate;
     if (toDate === date || toDate === "") {
       this.setState({
@@ -111,7 +111,7 @@ class LeaveForm extends React.Component {
   }
 
   _setToDate(date) {
-    date = moment(date).format("MM/DD/YYYY");
+    date = moment(date, "MM/DD/YYYY").format("MM/DD/YYYY");
     const fromDate = this.state.date.fromDate;
     if (date === fromDate || fromDate === "") {
       this.setState({
@@ -171,8 +171,7 @@ class LeaveForm extends React.Component {
         dept.list.length === 0 ||
         leaveType === "0" ||
         reason === "" ||
-        date.fromDate === "" ||
-        date.toDate === ""
+        date.fromDate === ""
       ) {
         Alert.alert(
           "Alert",
@@ -204,7 +203,7 @@ class LeaveForm extends React.Component {
       CountDays: _dateDifference(date.fromDate, date.toDate).toFixed(1),
       Value: _exportDays(date.fromDate, date.toDate),
       ProcessID: dept.processID,
-      DatEffect: moment(date.fromDate).format("MM/DD/YYYY"),
+      DatEffect: moment(date.fromDate, "MM/DD/YYYY").format("MM/DD/YYYY"),
       LeaveType: leaveType,
       PartDays: totalType.value,
       LstEmpApproval: listApproval
@@ -217,21 +216,23 @@ class LeaveForm extends React.Component {
         },
         () => {
           if (this.props.error) {
-            console.log(this.props.error);
-            Alert.alert(
-              "Alert",
-              this.props.error,
-              [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-              { cancelable: false }
-            );
+            setTimeout(() => {
+              Alert.alert(
+                "Alert",
+                this.props.error,
+                [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+                { cancelable: false }
+              );
+            }, 500)   
           } else {
-            console.log(this.props.result);
-            Alert.alert(
-              "",
-              "Register Absent is successful !",
-              [{ text: "OK", onPress: this._goBack }],
-              { cancelable: false }
-            );
+            setTimeout(() => {
+              Alert.alert(
+                "",
+                "Register Absent is successful !",
+                [{ text: "OK", onPress: this._goBack }],
+                { cancelable: false }
+              );
+            }, 500);
           }
         }
       );
