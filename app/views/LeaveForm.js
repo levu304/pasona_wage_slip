@@ -190,14 +190,23 @@ class LeaveForm extends React.Component {
   _postLeaveForm(date, totalType, leaveType, dept, reason) {
     const header = this.props.header;
     let valueText = "";
-    date.fromDate === date.toDate
-      ? (valueText = date.fromDate)
-      : (valueText = date.fromDate + " ~ " + date.toDate);
+
     let listApproval = dept.list.map(dept => dept.empID);
+
+    let countDays = "";
+
+    if (date.fromDate === date.toDate || date.toDate === "") {
+      valueText = date.fromDate;
+      countDays = totalType.value !== "3" ? 0.5 : 1.0;
+    } else {
+      valueText = date.fromDate + " ~ " + date.toDate;
+      countDays = _dateDifference(date.fromDate, date.toDate).toFixed(1);
+    }
+
     let absentData = {
       ValueText: valueText,
       Reason: reason,
-      CountDays: _dateDifference(date.fromDate, date.toDate).toFixed(1),
+      CountDays: countDays,
       Value: _exportDays(date.fromDate, date.toDate),
       ProcessID: dept.processID,
       DatEffect: date.fromDate,
