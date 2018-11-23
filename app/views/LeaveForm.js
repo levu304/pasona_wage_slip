@@ -194,20 +194,23 @@ class LeaveForm extends React.Component {
     let listApproval = dept.list.map(dept => dept.empID);
 
     let countDays = "";
+    let valueDays = "";
 
     if (date.fromDate === date.toDate || date.toDate === "") {
       valueText = date.fromDate;
       countDays = totalType.value !== "3" ? 0.5 : 1.0;
+      valueDays = date.fromDate;
     } else {
       valueText = date.fromDate + " ~ " + date.toDate;
       countDays = _dateDifference(date.fromDate, date.toDate).toFixed(1);
+      valueDays = _exportDays(date.fromDate, date.toDate);
     }
 
     let absentData = {
       ValueText: valueText,
       Reason: reason,
       CountDays: countDays,
-      Value: _exportDays(date.fromDate, date.toDate),
+      Value: valueDays,
       ProcessID: dept.processID,
       DatEffect: date.fromDate,
       LeaveType: leaveType,
